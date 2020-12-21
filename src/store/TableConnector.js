@@ -7,7 +7,12 @@ export const TableConnector = (dataType, presentationComponent) => {
 
     const mapStateToProps = (storeData) => ({
         products: storeData.modelData[PRODUCTS],
-        suppliers: storeData.modelData[SUPPLIERS]
+        suppliers: storeData.modelData[SUPPLIERS].map(supp => ({
+            ...supp,
+            products: supp.products.map(id =>
+                storeData.modelData[PRODUCTS].find(p => p.id === Number(id)) || id)
+                    .map(val => val.name || val)
+        }))
     })
 
     const mapDispatchToProps = {
@@ -15,6 +20,6 @@ export const TableConnector = (dataType, presentationComponent) => {
             ? startEditingProduct : startEditingSupplier,
         deleteCallback: dataType === PRODUCTS ? deleteProduct : deleteSupplier
     }
-    
+
     return connect(mapStateToProps, mapDispatchToProps)(presentationComponent);
 }
