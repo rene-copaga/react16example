@@ -1,8 +1,22 @@
 import React, { Component } from "react";
 import { SupplierEditor } from "./SupplierEditor";
 import { SupplierTable } from "./SupplierTable";
+import { connect } from "react-redux";
+import { saveSupplier, deleteSupplier } from "./store";
 
-export class SupplierDisplay extends Component {
+const mapStateToProps = (storeData) => ({
+    suppliers: storeData.suppliers
+})
+
+const mapDispatchToProps = {
+    saveCallback: saveSupplier,
+    deleteCallback: deleteSupplier
+}
+
+const connectFunction = connect(mapStateToProps, mapDispatchToProps);
+
+export const SupplierDisplay = connectFunction(
+    class extends Component {
 
     constructor(props) {
         super(props);
@@ -45,10 +59,10 @@ export class SupplierDisplay extends Component {
                 <div className="text-center">
                     <button className="btn btn-primary m-1"
                         onClick={this.createSupplier}>
-                            Create Supplier
+                        Create Supplier
                     </button>
                 </div>
             </div>
         }
     }
-}
+})
