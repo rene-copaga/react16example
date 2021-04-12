@@ -1,7 +1,9 @@
-import { combineReducers, createStore } from "redux";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import { customReducerEnhancer } from "./customReducerEnhancer";
 import modelReducer from "./modelReducer";
-import stateReducer from "./stateReducer"
+import stateReducer from "./stateReducer";
+import { multiActions } from "./multiActionMiddleware";
+import { asyncEnhancer } from "./asyncEnhancer";
 
 const enhancedReducer = customReducerEnhancer(
     combineReducers(
@@ -11,7 +13,8 @@ const enhancedReducer = customReducerEnhancer(
         })
 );
 
-export default createStore(enhancedReducer);
+export default createStore(enhancedReducer,
+    compose(applyMiddleware(multiActions), asyncEnhancer(2000)));
 
 export { saveProduct, saveSupplier, deleteProduct, deleteSupplier }
     from "./modelActionCreators";
