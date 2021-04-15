@@ -18,9 +18,9 @@ export class Selector extends Component {
                         <div><Link to="/people/bob">Bob</Link></div>
                     </div>
                     <div className="col">
-                        <Route path="/data" exact={ true }
+                        <Route path={["/data/one", "/people/bob"]} exact={true}
                             render={() => this.renderMessage("Route #1")} />
-                        <Route path="/data/two"
+                        <Route path={["/data", "/people"]}
                             render={() => this.renderMessage("Route #2")} />
                     </div>
                 </div>
