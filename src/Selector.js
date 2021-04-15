@@ -13,7 +13,7 @@ export class Selector extends Component {
                 <div className="row">
                     <div className="col-2">
                         <NavLink className="m-2 btn btn-block btn-primary"
-                            activeClassName="active"
+                            activeClassName="active" exact={ true }
                             to="/">Default URL</NavLink>
                         <NavLink className="m-2 btn btn-block btn-primary"
                             activeClassName="active"
