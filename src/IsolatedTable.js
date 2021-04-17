@@ -9,7 +9,8 @@ export class IsolatedTable extends Component {
         this.state = {
             products: []
         }
-        this.dataSource = new RestDataSource("http://localhost:3500/api/products")
+        this.dataSource = new RestDataSource("http://localhost:3500/api/products",
+            (err) => this.props.history.push(`/error/${err}`));
     }
 
     deleteProduct(product) {
@@ -58,6 +59,10 @@ export class IsolatedTable extends Component {
                     <td colSpan="5">
                         <Link to="/isolated/create"
                             className="btn btn-info">Create</Link>
+                        <button className="btn btn-danger mx-2"
+                            onClick={() => this.dataSource.GetOne("err")}>
+                            Error
+                        </button>
                     </td>
                 </tr>
             </tfoot>

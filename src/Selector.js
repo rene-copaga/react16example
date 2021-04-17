@@ -5,6 +5,7 @@ import { ToggleLink } from "./routing/ToggleLink";
 import { RoutedDisplay } from "./routing/RoutedDisplay";
 import { IsolatedTable } from "./IsolatedTable";
 import { IsolatedEditor } from "./IsolatedEditor";
+import { RequestError } from "./webservice/RequestError";
 
 export class Selector extends Component {
 
@@ -28,10 +29,12 @@ export class Selector extends Component {
                     </div>
                     <div className="col">
                         <Switch>
-                            <Route path="/isolated" component={ IsolatedTable } 
-                                exact={ true } />
+                            <Route path="/isolated" component={IsolatedTable}
+                                exact={true} />
                             <Route path="/isolated/:mode/:id?"
-                                component={ IsolatedEditor } />
+                                component={IsolatedEditor} />
+                            <Route path="/error/:message"
+                                component={RequestError} />
                             {routes.map(r =>
                                 <Route key={r.url}
                                     path={`/:datatype(${r.datatype})/:mode?/:id?`}
