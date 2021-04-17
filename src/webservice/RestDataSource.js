@@ -9,11 +9,11 @@ export class RestDataSource {
     GetData(callback) {
         this.SendRequest("get", this.BASE_URL, callback);
     }
-    
-    SendRequest(method, url, callback) {
-        Axios.request({
+
+    async SendRequest(method, url, callback) {
+        callback((await Axios.request({
             method: method,
             url: url
-        }).then(response => callback(response.data));
+        })).data);
     }
 }
