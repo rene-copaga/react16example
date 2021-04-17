@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 export class ToggleLink extends Component {
+
+  handleClick = (history) => {
+    history.push(this.props.to);
+  }
 
   render() {
     return <Route path={this.props.to} exact={this.props.exact}
@@ -14,9 +18,10 @@ export class ToggleLink extends Component {
         const combinedClasses =
           `${baseClasses} ${routeProps.match ? activeClass : inActiveClass}`
 
-        return <Link to={this.props.to} className={combinedClasses}>
+        return <button className={combinedClasses}
+                onClick={() => this.handleClick(routeProps.history)}>
                 {this.props.children}
-              </Link>
+              </button>
       }} />
   }
 }
