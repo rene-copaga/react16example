@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch, Redirect, withRouter }
+import { BrowserRouter as Router, Route, Switch, Redirect, withRouter, Prompt }
     from "react-router-dom";
 import { ProductDisplay } from "./ProductDisplay";
 import { SupplierDisplay } from "./SupplierDisplay";
@@ -21,6 +21,8 @@ export class Selector extends Component {
                         <ToggleLink to="/info" exact={true}>All Info</ToggleLink>
                     </div>
                     <div className="col">
+                        <Prompt message={loc =>
+                            `Do you want to navigate to ${loc.pathname}`} />
                         <RouteInfoHOC />
                         <Switch>
                             <Route path="/products" component={ProductDisplay} />
