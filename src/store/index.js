@@ -4,6 +4,7 @@ import modelReducer from "./modelReducer";
 import stateReducer from "./stateReducer";
 import { multiActions } from "./multiActionMiddleware";
 import { asyncEnhancer } from "./asyncEnhancer";
+import { createRestMiddleware } from "../webservice/RestMiddleware";
 
 const enhancedReducer = customReducerEnhancer(
     combineReducers(
@@ -13,8 +14,14 @@ const enhancedReducer = customReducerEnhancer(
         })
 );
 
+const restMiddleware = createRestMiddleware(
+    "http://localhost:3500/api/products",
+    "http://localhost:3500/api/suppliers");
+
 export default createStore(enhancedReducer,
-    compose(applyMiddleware(multiActions), asyncEnhancer(2000)));
+    compose(applyMiddleware(multiActions),
+    applyMiddleware(restMiddleware),
+    asyncEnhancer(2000)));
 
 export { saveProduct, saveSupplier, deleteProduct, deleteSupplier }
     from "./modelActionCreators";
